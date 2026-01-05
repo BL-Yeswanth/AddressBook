@@ -1,5 +1,5 @@
 from contact import ContactOperations
-from uc2 import Person  # Import your UC2 Person class
+from person import Person  # Import your UC2 Person class
 
 class AddressBookMain:
     """
