@@ -1,4 +1,4 @@
-from uc2 import Person
+from person import Person
 
 
 class ContactOperations:
