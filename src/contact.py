@@ -1,5 +1,6 @@
 from uc2 import Person
 
+
 class ContactOperations:
     """
     Handles all contact-related operations
