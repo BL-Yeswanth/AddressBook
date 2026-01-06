@@ -1,5 +1,5 @@
-from contact import ContactOperations
 from person import Person
+from address_book_system import AddressBookSystem
 
 
 class AddressBookMain:
@@ -8,24 +8,32 @@ class AddressBookMain:
     """
 
     def __init__(self):
-        self.contact_operations = ContactOperations()
+        self.system = AddressBookSystem()
 
     def start(self):
-        self.display_welcome_message()
+        print("Welcome to Address Book Program")
+
+        # =========================
+        # UC6: Create Address Book
+        # =========================
+        book_name = input("\nEnter Address Book Name: ").strip()
+        self.system.create_address_book(book_name)
+
+        address_book = self.system.get_address_book(book_name)
+
+        if not address_book:
+            return
 
         # =========================
         # UC1: Create Contact (Dictionary)
         # =========================
-        contact = self.contact_operations.create_contact()
+        contact = address_book.create_contact()
         if contact:
             print("\nContact Created Successfully")
-            self.display_contact(contact)
 
         # =========================
-        # UC2 + UC5: Add Multiple Contacts using Person class
+        # UC2 + UC5: Add Multiple Contacts (Person)
         # =========================
-        print("\nAdd Contacts using Person class")
-
         while True:
             print("\nEnter Person Details")
 
@@ -40,45 +48,33 @@ class AddressBookMain:
                 input("Email: ").strip()
             )
 
-            self.contact_operations.add_person_contact(person)
-            # UC5: Add Multiple Contacts
-            choice = input("\nDo you want to add another contact? (yes/no): ").strip().lower()
+            address_book.add_person_contact(person)
+
+            choice = input("\nAdd another contact? (yes/no): ").strip().lower()
             if choice != "yes":
                 break
 
         # =========================
         # Display All Contacts
         # =========================
-        self.contact_operations.display_person_contacts()
+        address_book.display_person_contacts()
 
         # =========================
         # UC3: Edit Contact
         # =========================
-        print("\n=== Edit Existing Contact ===")
-        name = input("Enter First Name to edit: ").strip()
-        self.contact_operations.edit_contact_by_name(name)
+        name = input("\nEnter First Name to edit: ").strip()
+        address_book.edit_contact_by_name(name)
 
         # =========================
         # UC4: Delete Contact
         # =========================
-        print("\n=== Delete Contact ===")
-        name = input("Enter First Name to delete: ").strip()
-        self.contact_operations.delete_contact_by_name(name)
+        name = input("\nEnter First Name to delete: ").strip()
+        address_book.delete_contact_by_name(name)
 
         # =========================
         # Final Display
         # =========================
-        self.contact_operations.display_person_contacts()
-
-    def display_welcome_message(self):
-        print("Welcome to Address Book Program")
-
-    def display_contact(self, contact):
-        print(
-            f"{contact['first_name']} {contact['last_name']}, "
-            f"{contact['address']}, {contact['city']}, {contact['state']} - {contact['zip']}, "
-            f"Phone: {contact['phone']}, Email: {contact['email']}"
-        )
+        address_book.display_person_contacts()
 
 
 if __name__ == "__main__":
