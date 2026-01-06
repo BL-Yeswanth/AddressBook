@@ -1,5 +1,6 @@
 from contact import ContactOperations
-from person import Person  # Import your UC2 Person class
+from person import Person
+
 
 class AddressBookMain:
     """
@@ -7,14 +8,13 @@ class AddressBookMain:
     """
 
     def __init__(self):
-        # Initialize AddressBook operations
         self.contact_operations = ContactOperations()
 
     def start(self):
         self.display_welcome_message()
 
         # =========================
-        # UC1: Create Contact (Dictionary version)
+        # UC1: Create Contact (Dictionary)
         # =========================
         contact = self.contact_operations.create_contact()
         if contact:
@@ -22,37 +22,53 @@ class AddressBookMain:
             self.display_contact(contact)
 
         # =========================
-        # UC2: Add Contact using Person class (OOP version)
+        # UC2 + UC5: Add Multiple Contacts using Person class
         # =========================
-        print("\nAdd another Contact using Person class")
-        person = Person(
-            input("First Name: ").strip(),
-            input("Last Name: ").strip(),
-            input("Address: ").strip(),
-            input("City: ").strip(),
-            input("State: ").strip(),
-            input("Zip Code: ").strip(),
-            input("Phone Number: ").strip(),
-            input("Email: ").strip()
-        )
+        print("\nAdd Contacts using Person class")
 
-        # UC2: Add Person object to AddressBook
-        self.contact_operations.add_person_contact(person)
+        while True:
+            print("\nEnter Person Details")
 
-        # Display all contacts (both UC1 and UC2)
+            person = Person(
+                input("First Name: ").strip(),
+                input("Last Name: ").strip(),
+                input("Address: ").strip(),
+                input("City: ").strip(),
+                input("State: ").strip(),
+                input("Zip Code: ").strip(),
+                input("Phone Number: ").strip(),
+                input("Email: ").strip()
+            )
+
+            self.contact_operations.add_person_contact(person)
+            # UC5: Add Multiple Contacts
+            choice = input("\nDo you want to add another contact? (yes/no): ").strip().lower()
+            if choice != "yes":
+                break
+
+        # =========================
+        # Display All Contacts
+        # =========================
         self.contact_operations.display_person_contacts()
-        
+
+        # =========================
         # UC3: Edit Contact
+        # =========================
         print("\n=== Edit Existing Contact ===")
         name = input("Enter First Name to edit: ").strip()
         self.contact_operations.edit_contact_by_name(name)
-        
+
+        # =========================
         # UC4: Delete Contact
+        # =========================
         print("\n=== Delete Contact ===")
         name = input("Enter First Name to delete: ").strip()
         self.contact_operations.delete_contact_by_name(name)
-        
 
+        # =========================
+        # Final Display
+        # =========================
+        self.contact_operations.display_person_contacts()
 
     def display_welcome_message(self):
         print("Welcome to Address Book Program")
@@ -64,7 +80,6 @@ class AddressBookMain:
             f"Phone: {contact['phone']}, Email: {contact['email']}"
         )
 
-    
 
 if __name__ == "__main__":
     app = AddressBookMain()

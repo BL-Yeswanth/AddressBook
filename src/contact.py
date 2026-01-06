@@ -6,6 +6,7 @@ class ContactOperations:
     Handles all contact-related operations
     """
     def __init__(self):
+        # UC5 Add multiple contacts using list
         self.contacts = []  # This will now store Person objects for UC2
 
     # =========================
