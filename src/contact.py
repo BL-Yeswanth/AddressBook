@@ -92,3 +92,22 @@ class ContactOperations:
                 return contact
 
         print("\nContact not found.")
+        
+    # =========================
+    # UC4: Delete Contact using Name
+    # =========================
+    def delete_contact_by_name(self, first_name):
+        for contact in self.contacts:
+            # UC1 dictionary contact
+            if isinstance(contact, dict) and contact["first_name"].lower() == first_name.lower():
+                self.contacts.remove(contact)
+                print(f"\nContact '{first_name}' deleted successfully.")
+                return first_name
+
+            # UC2 Person object
+            if isinstance(contact, Person) and contact.first_name.lower() == first_name.lower():
+                self.contacts.remove(contact)
+                print(f"\nContact '{first_name}' deleted successfully.")
+                return first_name
+
+        print("\nContact not found.")

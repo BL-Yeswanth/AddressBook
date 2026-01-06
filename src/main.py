@@ -46,6 +46,12 @@ class AddressBookMain:
         print("\n=== Edit Existing Contact ===")
         name = input("Enter First Name to edit: ").strip()
         self.contact_operations.edit_contact_by_name(name)
+        
+        # UC4: Delete Contact
+        print("\n=== Delete Contact ===")
+        name = input("Enter First Name to delete: ").strip()
+        self.contact_operations.delete_contact_by_name(name)
+        
 
 
     def display_welcome_message(self):
