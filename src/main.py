@@ -36,11 +36,17 @@ class AddressBookMain:
             input("Email: ").strip()
         )
 
-        # Add Person object to AddressBook
+        # UC2: Add Person object to AddressBook
         self.contact_operations.add_person_contact(person)
 
         # Display all contacts (both UC1 and UC2)
         self.contact_operations.display_person_contacts()
+        
+        # UC3: Edit Contact
+        print("\n=== Edit Existing Contact ===")
+        name = input("Enter First Name to edit: ").strip()
+        self.contact_operations.edit_contact_by_name(name)
+
 
     def display_welcome_message(self):
         print("Welcome to Address Book Program")
@@ -52,6 +58,7 @@ class AddressBookMain:
             f"Phone: {contact['phone']}, Email: {contact['email']}"
         )
 
+    
 
 if __name__ == "__main__":
     app = AddressBookMain()

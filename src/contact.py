@@ -61,3 +61,34 @@ class ContactOperations:
                     f"{person.address}, {person.city}, {person.state} - {person.zip_code}, "
                     f"Phone: {person.phone}, Email: {person.email}"
                 )
+
+    # =========================
+    # UC3: Edit Contact using Name
+    # =========================
+    def edit_contact_by_name(self, first_name):
+        for contact in self.contacts:
+            # UC1 Dictionary contact
+            if isinstance(contact, dict) and contact["first_name"].lower() == first_name.lower():
+                print(f"\nEditing contact: {contact['first_name']}")
+                contact["address"] = input("New Address: ")
+                contact["city"] = input("New City: ")
+                contact["state"] = input("New State: ")
+                contact["zip"] = input("New Zip: ")
+                contact["phone"] = input("New Phone: ")
+                contact["email"] = input("New Email: ")
+                print("\nContact updated successfully.")
+                return contact
+
+            # UC2 Person object
+            if isinstance(contact, Person) and contact.first_name.lower() == first_name.lower():
+                print(f"\nEditing contact: {contact.first_name}")
+                contact.address = input("New Address: ")
+                contact.city = input("New City: ")
+                contact.state = input("New State: ")
+                contact.zip_code = input("New Zip: ")
+                contact.phone = input("New Phone: ")
+                contact.email = input("New Email: ")
+                print("\nContact updated successfully.")
+                return contact
+
+        print("\nContact not found.")
