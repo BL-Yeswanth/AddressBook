@@ -40,13 +40,6 @@ class AddressBookMain:
                 print("Invalid choice.")
 
         # =========================
-        # UC1: Create Contact (Dictionary)
-        # =========================
-        contact = address_book.create_contact()
-        if contact:
-            print("\nContact Created Successfully")
-
-        # =========================
         # UC2 + UC5 + UC7: Add Multiple Contacts (Person)
         # =========================
         while True:
@@ -63,7 +56,7 @@ class AddressBookMain:
                 input("Email: ").strip()
             )
 
-            # UC7 duplicate handled internally
+            # UC7: Duplicate handled internally
             address_book.add_person_contact(person)
 
             choice = input("\nAdd another contact? (yes/no): ").strip().lower()
@@ -91,6 +84,32 @@ class AddressBookMain:
         # Final Display
         # =========================
         address_book.display_person_contacts()
+
+        # =========================
+        # UC8: Search Person by City or State
+        # =========================
+        while True:
+            print("\n=== Search Person Across Address Books ===")
+            print("1. Search by City")
+            print("2. Search by State")
+            print("3. Exit Search")
+
+            choice = input("Choose option (1/2/3): ").strip()
+
+            if choice == "1":
+                city = input("Enter City Name: ").strip()
+                self.system.search_person_by_city(city)
+
+            elif choice == "2":
+                state = input("Enter State Name: ").strip()
+                self.system.search_person_by_state(state)
+
+            elif choice == "3":
+                print("Exiting Search.")
+                break
+
+            else:
+                print("Invalid choice.")
 
 
 if __name__ == "__main__":
