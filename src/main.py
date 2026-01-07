@@ -14,15 +14,30 @@ class AddressBookMain:
         print("Welcome to Address Book Program")
 
         # =========================
-        # UC6: Create Address Book
+        # UC6: Create / Select Address Book
         # =========================
-        book_name = input("\nEnter Address Book Name: ").strip()
-        self.system.create_address_book(book_name)
+        while True:
+            print("\n1. Create Address Book")
+            print("2. Select Address Book")
+            choice = input("Choose option (1/2): ").strip()
 
-        address_book = self.system.get_address_book(book_name)
+            if choice == "1":
+                book_name = input("Enter New Address Book Name: ").strip()
+                self.system.create_address_book(book_name)
+                address_book = self.system.get_address_book(book_name)
+                break
 
-        if not address_book:
-            return
+            elif choice == "2":
+                self.system.display_address_books()
+                book_name = input("Enter Address Book Name: ").strip()
+                address_book = self.system.get_address_book(book_name)
+
+                if not address_book:
+                    print("Address Book not found.")
+                    continue
+                break
+            else:
+                print("Invalid choice.")
 
         # =========================
         # UC1: Create Contact (Dictionary)
@@ -32,7 +47,7 @@ class AddressBookMain:
             print("\nContact Created Successfully")
 
         # =========================
-        # UC2 + UC5: Add Multiple Contacts (Person)
+        # UC2 + UC5 + UC7: Add Multiple Contacts (Person)
         # =========================
         while True:
             print("\nEnter Person Details")
@@ -48,6 +63,7 @@ class AddressBookMain:
                 input("Email: ").strip()
             )
 
+            # UC7 duplicate handled internally
             address_book.add_person_contact(person)
 
             choice = input("\nAdd another contact? (yes/no): ").strip().lower()

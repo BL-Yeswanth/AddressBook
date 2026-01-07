@@ -6,11 +6,10 @@ class ContactOperations:
     Handles all contact-related operations
     """
     def __init__(self):
-        # UC5 Add multiple contacts using list
-        self.contacts = []  # This will now store Person objects for UC2
+        self.contacts = []  # UC5: Collection to store contacts
 
     # =========================
-    # UC1: Create Contact (dictionary version)
+    # UC1: Create Contact (Dictionary)
     # =========================
     def create_contact(self):
         print("\nEnter Contact Details")
@@ -30,26 +29,57 @@ class ContactOperations:
         return contact
 
     # =========================
-    # UC2: Add Contact (Object-oriented version)
+    # UC7: Duplicate Check Helper
+    # =========================
+    def _is_duplicate_person(self, person):
+        for existing in self.contacts:
+
+            # Case 1: Existing contact is Person
+            if isinstance(existing, Person) and existing == person:
+                return True
+
+            # Case 2: Existing contact is Dictionary (UC1)
+            if isinstance(existing, dict):
+                if (
+                    existing["first_name"].strip().lower() == person.first_name.lower()
+                    and existing["last_name"].strip().lower() == person.last_name.lower()
+                ):
+                    return True
+
+        return False
+
+    # =========================
+    # UC2 + UC7: Add Person with Duplicate Check
     # =========================
     def add_person_contact(self, person):
         """
-        Add a Person object to the AddressBook
+        Add a Person object to AddressBook
+        Duplicate check based on first_name + last_name
         """
-        self.contacts.append(person)
-        print(f"\nContact {person.first_name} {person.last_name} added successfully.")
 
+        if self._is_duplicate_person(person):
+            print(
+                f"\nDuplicate Entry ❌ : "
+                f"{person.first_name} {person.last_name} already exists."
+            )
+            return False
+
+        self.contacts.append(person)
+        print(
+            f"\nContact {person.first_name} {person.last_name} added successfully ✅"
+        )
+        return True
+
+    # =========================
+    # Display Contacts
+    # =========================
     def display_person_contacts(self):
-        """
-        Display all Person objects in AddressBook
-        """
         if not self.contacts:
             print("\nNo contacts in AddressBook.")
             return
 
         print("\nAddressBook Contacts:")
         for person in self.contacts:
-            # Check if it is a dictionary (UC1) or Person object (UC2)
             if isinstance(person, dict):
                 print(
                     f"{person['first_name']} {person['last_name']}, "
@@ -64,11 +94,10 @@ class ContactOperations:
                 )
 
     # =========================
-    # UC3: Edit Contact using Name
+    # UC3: Edit Contact
     # =========================
     def edit_contact_by_name(self, first_name):
         for contact in self.contacts:
-            # UC1 Dictionary contact
             if isinstance(contact, dict) and contact["first_name"].lower() == first_name.lower():
                 print(f"\nEditing contact: {contact['first_name']}")
                 contact["address"] = input("New Address: ")
@@ -80,7 +109,6 @@ class ContactOperations:
                 print("\nContact updated successfully.")
                 return contact
 
-            # UC2 Person object
             if isinstance(contact, Person) and contact.first_name.lower() == first_name.lower():
                 print(f"\nEditing contact: {contact.first_name}")
                 contact.address = input("New Address: ")
@@ -93,22 +121,21 @@ class ContactOperations:
                 return contact
 
         print("\nContact not found.")
-        
+
     # =========================
-    # UC4: Delete Contact using Name
+    # UC4: Delete Contact
     # =========================
     def delete_contact_by_name(self, first_name):
         for contact in self.contacts:
-            # UC1 dictionary contact
             if isinstance(contact, dict) and contact["first_name"].lower() == first_name.lower():
                 self.contacts.remove(contact)
                 print(f"\nContact '{first_name}' deleted successfully.")
-                return first_name
+                return True
 
-            # UC2 Person object
             if isinstance(contact, Person) and contact.first_name.lower() == first_name.lower():
                 self.contacts.remove(contact)
                 print(f"\nContact '{first_name}' deleted successfully.")
-                return first_name
+                return True
 
         print("\nContact not found.")
+        return False
