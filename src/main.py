@@ -111,6 +111,30 @@ class AddressBookMain:
             else:
                 print("Invalid choice.")
 
+        # =========================
+        # UC9: View Persons by City or State
+        # =========================
+        while True:
+            print("\n=== View Persons By City / State ===")
+            print("1. View by City")
+            print("2. View by State")
+            print("3. Exit View")
+
+            choice = input("Choose option (1/2/3): ").strip()
+
+            if choice == "1":
+                self.system.view_persons_by_city()
+
+            elif choice == "2":
+                self.system.view_persons_by_state()
+
+            elif choice == "3":
+                print("Exiting View.")
+                break
+
+            else:
+                print("Invalid choice.")
+
 
 if __name__ == "__main__":
     app = AddressBookMain()

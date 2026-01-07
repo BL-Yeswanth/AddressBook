@@ -37,10 +37,9 @@ class AddressBookSystem:
 
         results = [
             person
-            for address_book in self.address_books.values()
-            for person in address_book.contacts
-            if isinstance(person, Person)
-            and person.city.lower() == city.lower()
+            for book in self.address_books.values()
+            for person in book.contacts
+            if person.city.lower() == city.lower()
         ]
 
         self._display_search_results(results)
@@ -53,16 +52,49 @@ class AddressBookSystem:
 
         results = [
             person
-            for address_book in self.address_books.values()
-            for person in address_book.contacts
-            if isinstance(person, Person)
-            and person.state.lower() == state.lower()
+            for book in self.address_books.values()
+            for person in book.contacts
+            if person.state.lower() == state.lower()
         ]
 
         self._display_search_results(results)
 
     # =========================
-    # UC8: Helper Method
+    # UC9: View Persons by City
+    # =========================
+    def view_persons_by_city(self):
+        city_dict = {}
+
+        for book in self.address_books.values():
+            for person in book.contacts:
+                city = person.city
+                city_dict.setdefault(city, []).append(person)
+
+        print("\nPersons grouped by City:")
+        for city, persons in city_dict.items():
+            print(f"\nCity: {city}")
+            for p in persons:
+                print(f"  - {p.first_name} {p.last_name}")
+
+    # =========================
+    # UC9: View Persons by State
+    # =========================
+    def view_persons_by_state(self):
+        state_dict = {}
+
+        for book in self.address_books.values():
+            for person in book.contacts:
+                state = person.state
+                state_dict.setdefault(state, []).append(person)
+
+        print("\nPersons grouped by State:")
+        for state, persons in state_dict.items():
+            print(f"\nState: {state}")
+            for p in persons:
+                print(f"  - {p.first_name} {p.last_name}")
+
+    # =========================
+    # Helper
     # =========================
     def _display_search_results(self, results):
         if not results:
@@ -74,5 +106,5 @@ class AddressBookSystem:
             print(
                 f"{person.first_name} {person.last_name}, "
                 f"{person.city}, {person.state}, "
-                f"Phone: {person.phone}, Email: {person.email}"
+                f"Phone: {person.phone}"
             )
