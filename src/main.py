@@ -135,6 +135,30 @@ class AddressBookMain:
             else:
                 print("Invalid choice.")
 
+        # =========================
+        # UC10: Count Persons by City or State
+        # =========================
+        while True:
+            print("\n=== Count Persons By City / State ===")
+            print("1. Count by City")
+            print("2. Count by State")
+            print("3. Exit Count")
+
+            choice = input("Choose option (1/2/3): ").strip()
+
+            if choice == "1":
+                self.system.count_persons_by_city()
+
+            elif choice == "2":
+                self.system.count_persons_by_state()
+
+            elif choice == "3":
+                print("Exiting Count.")
+                break
+
+            else:
+                print("Invalid choice.")
+
 
 if __name__ == "__main__":
     app = AddressBookMain()

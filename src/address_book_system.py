@@ -94,6 +94,36 @@ class AddressBookSystem:
                 print(f"  - {p.first_name} {p.last_name}")
 
     # =========================
+    # UC10: Count Persons by City
+    # =========================
+    def count_persons_by_city(self):
+        city_count = {}
+
+        for book in self.address_books.values():
+            for person in book.contacts:
+                city = person.city
+                city_count[city] = city_count.get(city, 0) + 1
+
+        print("\nPerson Count by City:")
+        for city, count in city_count.items():
+            print(f"{city}: {count}")
+
+    # =========================
+    # UC10: Count Persons by State
+    # =========================
+    def count_persons_by_state(self):
+        state_count = {}
+
+        for book in self.address_books.values():
+            for person in book.contacts:
+                state = person.state
+                state_count[state] = state_count.get(state, 0) + 1
+
+        print("\nPerson Count by State:")
+        for state, count in state_count.items():
+            print(f"{state}: {count}")
+
+    # =========================
     # Helper
     # =========================
     def _display_search_results(self, results):
